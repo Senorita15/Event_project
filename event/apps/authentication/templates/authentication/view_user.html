@@ -57,15 +57,18 @@
                     {{user.telephone}}
                   </span>
                 </p>
-
                 <p class="clearfix">
-                  <span class="float-left">
-                    Actif
-                  </span>
-                  <span class="float-right text-muted">
-                    {{user.is_staff}}
-                  </span>
-                </p>
+                <span class="float-left">
+                  Status
+                </span>
+                <span class="float-right text-muted">
+                  {% if user.active %}
+                      true
+                  {% else %}
+                      false
+                  {% endif %}
+                </span>
+              </p>
                 <p class="clearfix">
                   <span class="float-left">
                     Cree_par
@@ -86,7 +89,7 @@
             </div>
           </div>
         </div>
-    
+
     </div>
 
 {% endblock  %}

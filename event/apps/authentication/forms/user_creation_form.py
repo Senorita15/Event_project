@@ -26,7 +26,9 @@ class UserForm(UserCreationForm):
                     "class": "form-control",
                     "placeholder": "Sélectionner une date",
                     "type": "date",
-                    "max": (timezone.now() - timezone.timedelta(days=18*365)).replace(year=timezone.now().year - 18).date(),
+                    "max": (timezone.now() - timezone.timedelta(days=16 * 365))
+                    .replace(year=timezone.now().year - 16)
+                    .date(),
                 },
                 format="%Y-%m-%d",
             )

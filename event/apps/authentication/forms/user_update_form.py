@@ -16,7 +16,6 @@ class Userchange(UserChangeForm):
             "dob",
             "genre",
             "telephone",
-
         ]
         widgets = {
             "dob": forms.DateInput(
@@ -24,7 +23,7 @@ class Userchange(UserChangeForm):
                     "class": "form-control",
                     "placeholder": "Sélectionner une date",
                     "type": "date",
-                    "min": (timezone.now() - timezone.timedelta(days=16*365)).date(),
+                    "min": (timezone.now() - timezone.timedelta(days=16 * 365)).date(),
                     "max": timezone.now().date(),
                 },
                 format="%Y-%m-%d",
