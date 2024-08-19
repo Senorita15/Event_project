@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+
+<!-- Header Section -->
+{% include 'authentication/partials/header.html' %}
+<!-- End header section -->
+
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+
+        <!-- Navbar Section -->
+        {% include 'authentication/partials/navbar.html' %}
+        <!-- End navbar section -->
+
+        <!-- Sidebar Section -->
+        {% include 'authentication/partials/sidebar.html' %}
+        <!-- End sidebar Section -->
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+              <div class="section-body">
+                  <!--  content is here -->
+                  {% block content %}
+
+                  {% endblock %}
+              </div>
+            </section>
+        </div>
+        <!-- End Main Content -->
+
+
+        <!-- Footer Section -->
+        {% include 'authentication/partials/footer.html' %}
+        <!-- End Footer Section -->
+
+
+      </div>
+    </div>
+    <!-- General JS Scripts -->
+    <script src="{% static 'authentication/js/app.min.js' %}"></script>
+      <!-- JS Libraies -->
+    <script src="{% static 'authentication/bundles/datatables/datatables.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/jquery-ui/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/apexcharts/apexcharts.min.js' %}"></script>
+    <!-- Page Specific JS Fiapp/le -->
+    <!-- Template JS File app/>-->
+    <script src="{% static 'authentication/js/scripts.js' %}"></script>
+    <!-- Custom JS File -->
+    <script src="{% static 'authentication/js/custom.js' %}"></script>
+
+
+  <!-- Page Specific JS File -->
+    <script src="{% static 'authentication/js/page/datatables.js' %}"></script>
+    <script src="{% static 'authentication/js/page/index.js' %}"></script>
+    <script src="{% static 'authentication/js/main.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/export-tables/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/export-tables/buttons.flash.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/export-tables/jszip.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/export-tables/pdfmake.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/export-tables/vfs_fonts.js' %}"></script>
+    <script src="{% static 'authentication/bundles/datatables/export-tables/buttons.print.min.js' %}"></script>
+
+    <!-- JS Libraies -->
+    <script src="{% static 'authentication/bundles/apexcharts/apexcharts.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+    <script src="{% static 'authentication/js/page/chart-apexcharts.js' %}"></script>
+      <!-- JS Libraies -->
+    <script src="{% static 'authentication/bundles/jquery.sparkline.min.js' %}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{% static 'authentication/js/page/sparkline.js' %}"></script>
+      <!-- JS Libraies -->
+    {% comment %} <script src="assets/bundles/chartjs/chart.min.js"></script>
+  <!-- Page Specific JS File -->
+    <script src="assets/js/page/chart-chartjs.js"></script> {% endcomment %}
+
+        <!-- JS Libraies -->
+    <script src="{% static 'authentication/bundles/echart/echarts.js' %}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{% static 'authentication/js/page/chart-echarts.js' %}"></script>
+     <!-- JS Libraies -->
+    <script src="{% static 'authentication/bundles/chartjs/chart.min.js' %}"></script>
+  <!-- Page Specific JS File -->
+    <script src="{% static 'authentication/js/page/chart-chartjs.js' %}"></script>
+      {% comment %} <script src="assets/bundles/chartjs/chart.min.js"></script>
+      <!-- Page Specific JS File -->
+      <script src="assets/js/page/chart-chartjs.js"></script> {% endcomment %}
+     <!-- JS Libraies -->
+    <script src="{% static 'authentication/bundles/chartjs/chart.min.js' %}"></script>
+    <script src="{% static 'authentication/bundles/owlcarousel2/dist/owl.carousel.min.js' %}"></script>
+    <!-- Page Specific JS File -->
+    <script src="{% static 'authentication/js/page/widget-data.js' %}"></script>
+
+</body>
+
+
+</html>
