@@ -7,7 +7,4 @@ from django.utils import timezone
 class Useractivate(forms.ModelForm):
     class Meta:
         model = User
-        fields = [
-            "active"
-        ]
-     
+        fields = ["active"]
