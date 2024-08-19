@@ -16,55 +16,139 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Room',
+            name="Room",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('nom', models.CharField(blank=True, null=True)),
-                ('adresse', models.CharField(blank=True, null=True)),
-                ('created_at', models.DateField(auto_now_add=True, null=True)),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("nom", models.CharField(blank=True, null=True)),
+                ("adresse", models.CharField(blank=True, null=True)),
+                ("created_at", models.DateField(auto_now_add=True, null=True)),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField()),
-                ('limit_attendees', models.PositiveIntegerField()),
-                ('start_date', models.DateTimeField()),
-                ('end_date', models.DateField()),
-                ('active', models.BooleanField(default=False)),
-                ('description', models.TextField()),
-                ('created_at', models.DateField(auto_now_add=True, null=True)),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_by_event', to=settings.AUTH_USER_MODEL)),
-                ('room', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='event_app.room')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField()),
+                ("limit_attendees", models.PositiveIntegerField()),
+                ("start_date", models.DateTimeField()),
+                ("end_date", models.DateField()),
+                ("active", models.BooleanField(default=False)),
+                ("description", models.TextField()),
+                ("created_at", models.DateField(auto_now_add=True, null=True)),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="created_by_event",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "room",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="event_app.room"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Ticket_category_1',
+            name="Ticket_category_1",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=10)),
-                ('price', models.FloatField()),
-                ('description', models.TextField()),
-                ('created_at', models.DateField(auto_now_add=True, null=True)),
-                ('created_by', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='created_by_ticket_category', to=settings.AUTH_USER_MODEL)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='event_app.event')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=10)),
+                ("price", models.FloatField()),
+                ("description", models.TextField()),
+                ("created_at", models.DateField(auto_now_add=True, null=True)),
+                (
+                    "created_by",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="created_by_ticket_category",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "event",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="event_app.event",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Reservation',
+            name="Reservation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(blank=True, max_length=10, null=True)),
-                ('last_name', models.CharField(blank=True, max_length=10, null=True)),
-                ('phone_number', phone_field.models.PhoneField(max_length=31)),
-                ('email', models.EmailField(max_length=254)),
-                ('genre', models.CharField(choices=[('Homme', 'H'), ('Femme', 'F')], max_length=10, verbose_name='Genre')),
-                ('ticket_number', models.IntegerField(blank=True, null=True)),
-                ('validated', models.BooleanField(default=False)),
-                ('created_at', models.DateField(auto_now_add=True, null=True)),
-                ('ticket_event', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='event_app.ticket_category_1')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("first_name", models.CharField(blank=True, max_length=10, null=True)),
+                ("last_name", models.CharField(blank=True, max_length=10, null=True)),
+                ("phone_number", phone_field.models.PhoneField(max_length=31)),
+                ("email", models.EmailField(max_length=254)),
+                (
+                    "genre",
+                    models.CharField(
+                        choices=[("Homme", "H"), ("Femme", "F")],
+                        max_length=10,
+                        verbose_name="Genre",
+                    ),
+                ),
+                ("ticket_number", models.IntegerField(blank=True, null=True)),
+                ("validated", models.BooleanField(default=False)),
+                ("created_at", models.DateField(auto_now_add=True, null=True)),
+                (
+                    "ticket_event",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to="event_app.ticket_category_1",
+                    ),
+                ),
             ],
         ),
     ]
