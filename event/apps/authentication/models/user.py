@@ -13,6 +13,7 @@ class User(AbstractUser):
     genre = models.CharField(max_length=10, choices=genre, verbose_name="Genre")
     telephone = PhoneField(null=True, blank=True)
     role = models.CharField(max_length=50, choices=role, verbose_name="role")
+    active=models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True, null=True, blank=True)
     created_by = models.ForeignKey(
         "authentication.User",
