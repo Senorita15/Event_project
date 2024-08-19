@@ -6,11 +6,11 @@ from event.apps.authentication.views import (
     user_activate,
     LoginPageView,
     UpdatepasswordView,
-    UserActivateView
-
+    UserActivateView,
 )
 
 from rest_framework.routers import DefaultRouter
+
 router = DefaultRouter()
 router.register(r"users", Userviewsets, basename="user"),
 
@@ -27,9 +27,9 @@ urlpatterns = [
         name="user-update",
     ),
     path(
-    "users/activate/<int:pk>/",
-    UserActivateView.as_view(),
-    name="user-activate",
+        "users/activate/<int:pk>/",
+        UserActivateView.as_view(),
+        name="user-activate",
     ),
     path("change_password/", UpdatepasswordView.as_view(), name="change_password"),
     path("", include(router.urls)),
