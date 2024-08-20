@@ -77,9 +77,7 @@ class UpdatepasswordView(View):
         return render(request, "authentication/update_password_user.html", context)
 
     def post(self, request):
-        assert isinstance(request, HttpRequest)
         form = UpdatePasswordForm(request.user, request.POST)
-        assert isinstance(request, HttpRequest)
         if form.is_valid():
             user = User
             user = form.save()
