@@ -15,7 +15,6 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import viewsets
-from .forms import *
 from event.apps.authentication.models import User
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -58,9 +57,11 @@ class LoginPageView(View):
         if user is not None:
             login(request, user)
             if request.user.is_authenticated:
-                return redirect("user-list")
+                if request.user.is_superuser:
+                    return redirect("user-list")
+                return redirect("home")
             else:
-                messages.error(request, "Identifiants incorrects. Veuillez réessayer.")
+                messages.error(request, "Mauvais")
                 return redirect("login")
         else:
             messages.error(request, "Identifiants incorrects. Veuillez réessayer.")
@@ -104,7 +105,7 @@ class Userviewsets(viewsets.ViewSet):
     # List
     def list(self, request):
         connected_user = request.user
-        users = User.objects.filter(created_by=connected_user)
+        users = User.objects.all()
         context = {"users": users}
         return Response(context, template_name=self.list_user_template)
 
