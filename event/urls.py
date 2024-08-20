@@ -19,4 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path("", include("event.apps.authentication.urls")),
+    path("", include("event.apps.event_app.urls")),
 ]
