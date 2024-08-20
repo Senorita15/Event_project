@@ -2,8 +2,8 @@ from django.http import Http404, HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from event.apps.event_app.serializers import EventSerializer
-from event.apps.event_app.models import *
+from event.apps.event_app.serializers import TicketcategorySerializer
+from event.apps.event_app.models import Ticket_category_1
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
@@ -13,26 +13,27 @@ from django.shortcuts import render, redirect
 from rest_framework.decorators import api_view, action
 
 
-class event_creation_form(View):
+class category_creation_form(View):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.role == "gerant":
-
-            serializer = EventSerializer()
+        if request.user.is_authenticated and request.user.role=='gerant':
+            serializer = TicketcategorySerializer()
             context = {"serializer": serializer}
-            return render(request, "event_app/event/add.html", context)
+            return render(request, "event_app/ticket_category/add.html", context)
         return HttpResponse("YOU ARE NOT AUTHORIZED TO ACCESS THIS PAGE")
 
 
-class event_edit_form(View):
+class category_edit_form(View):
     def get(self, request, pk=None):
         if request.user.is_authenticated:
             connected_user = request.user
-            created_by_connected_user = Event.objects.filter(created_by=connected_user)
+            created_by_connected_user = Ticket_category_1.objects.filter(
+                created_by=connected_user
+            )
             try:
-                room = get_object_or_404(created_by_connected_user, pk=pk)
-                serializer = EventSerializer(instance=room)
-                context = {"serializer": serializer, "room": room}
-                return render(request, "event_app/event/edit.html", context)
+                category = get_object_or_404(created_by_connected_user, pk=pk)
+                serializer = TicketcategorySerializer(instance=category)
+                context = {"serializer": serializer, "category": category}
+                return render(request, "event_app/ticket_category/edit.html", context)
             except:
                 return HttpResponse(
                     "THE REQUESTED EVENT DOESNT EXIST OR YOU ARE NOT THE AUTHOR OF ITS CREATION"
@@ -40,12 +41,12 @@ class event_edit_form(View):
         return HttpResponse("YOU ARE NOT AUTHORIZED TO ACCESS THIS PAGE")
 
 
-class EventViewSet(viewsets.ViewSet):
+class CategoryViewSet(viewsets.ViewSet):
     def list(self, request):
         if request.user.is_authenticated:
             user_connected = request.user
-            queryset = Event.objects.filter(created_by=user_connected)
-            serializer_class = EventSerializer(queryset, many=True)
+            queryset = Ticket_category_1.objects.filter(created_by=user_connected)
+            serializer_class = TicketcategorySerializer(queryset, many=True)
             return Response(
                 serializer_class.data,
             )
@@ -53,7 +54,7 @@ class EventViewSet(viewsets.ViewSet):
 
     def create(self, request):
         data = request.data.copy()
-        serializer = EventSerializer(data=request.data)
+        serializer = TicketcategorySerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(created_by=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -64,10 +65,10 @@ class EventViewSet(viewsets.ViewSet):
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
             user_connected = request.user
-            queryset = Event.objects.filter(created_by=user_connected)
+            queryset = Ticket_category_1.objects.filter(created_by=user_connected)
             try:
                 event = get_object_or_404(queryset, pk=pk)
-                serializer = EventSerializer(event)
+                serializer = TicketcategorySerializer(event)
                 content = {"data": serializer.data}
                 return Response(content)
             except:
@@ -80,9 +81,9 @@ class EventViewSet(viewsets.ViewSet):
     def update(self, request, pk=None):
         if request.user.is_authenticated:
             try:
-                queryset = Event.objects.all()
+                queryset = Ticket_category_1.objects.all()
                 event = get_object_or_404(queryset, pk=pk)
-                serializer = EventSerializer(event, data=request.data)
+                serializer = TicketcategorySerializer(event, data=request.data)
                 if serializer.is_valid():
                     serializer.save()
 
@@ -91,7 +92,7 @@ class EventViewSet(viewsets.ViewSet):
                     return Response(content, status=status.HTTP_200_OK)
                 message = serializer.errors
                 context = {"message": serializer.errors}
-                return Response(context, status=status.HTTP_400_BAD_REQUEST)
+                return Response(context,status=status.HTTP_400_BAD_REQUEST)
             except:
                 message = "THE REQUESTED ROOM DOESNT EXIST OR YOU ARE NOT THE AUTHOR OF ITS CREATION"
                 return Response(
@@ -103,7 +104,7 @@ class EventViewSet(viewsets.ViewSet):
         if request.user.is_authenticated:
             try:
                 user_connected = request.user
-                queryset = Event.objects.filter(created_by=user_connected)
+                queryset = Ticket_category_1.objects.filter(created_by=user_connected)
                 room = get_object_or_404(queryset, pk=pk)
                 room.delete()
                 message = "EVENT SUCCESSFULLY DELETED"
@@ -115,22 +116,3 @@ class EventViewSet(viewsets.ViewSet):
                     {"message": message}, status=status.HTTP_400_BAD_REQUEST
                 )
         return Response(status=status.HTTP_401_UNAUTHORIZED)
-
-    @action(detail=True, methods=["GET"])
-    def update_evenement_status(self, request, pk=None):
-        try:
-            event = get_object_or_404(Event, pk=pk)
-            if event.active:
-                event.active = False
-                message_text = "Event successfully deactivated."
-            else:
-                event.active = True
-                message_text = "Event successfully activated."
-
-            event.save()
-            message = "EVENT SUCCESSFULLY UPDATED"
-            context = {"message": message}
-            return Response(context, status=status.HTTP_200_OK)
-        except:
-            message = "THE REQUESTED EVENT DOESNT EXIST OR YOU ARE NOT THE AUTHOR OF ITS CREATION"
-            return Response({"message": message}, status=status.HTTP_400_BAD_REQUEST)

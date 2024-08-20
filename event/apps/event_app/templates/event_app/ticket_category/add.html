@@ -1,0 +1,46 @@
+{% extends "authentication/layouts/default.html" %}
+
+{% load rest_framework %}
+{% block content %}
+
+{% if message %}
+  <ul class="messages">
+    {% for message in message %}
+    <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+<div class="content">
+  <div class="row">
+    <div class="col-lg-12">
+      {% if messages %} {% for message in messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-alert mr-1"></i>{{ message }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endfor %} {% endif %}
+      <div class="card card-default">
+        <div class="card-header card-header-border-bottom">
+          <h2>New Ticket_category</h2>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'category-list' %}" method="post">
+                {% csrf_token %}
+                {% render_form serializer %}
+                <input type="submit" value="Save" />
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
