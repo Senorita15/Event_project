@@ -39,18 +39,17 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'event.apps.authentication',
+    "event.apps.authentication",
     "phonenumber_field",
     "phone_field",
-    'django_bootstrap5',
-    'crispy_bootstrap5',
-    'crispy_forms',
-    'rest_framework',
-    'event.apps.event_app',
-  
+    "django_bootstrap5",
+    "crispy_bootstrap5",
+    "crispy_forms",
+    "rest_framework",
+    "event.apps.event_app",
 ]
 
-#Add custom user
+# Add custom user
 AUTH_USER_MODEL = "authentication.User"
 
 MIDDLEWARE = [
