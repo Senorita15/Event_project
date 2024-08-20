@@ -15,7 +15,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 class room_creation_form(View):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.role=='gerant':
+        if request.user.is_authenticated and request.user.role == "gerant":
             serializer = RoomSerializer()
             context = {"serializer": serializer}
             return render(request, "event_app/room/add.html", context)
@@ -58,7 +58,7 @@ class RoomViewSet(viewsets.ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         message = serializer.errors
         context = {"message": message}
-        return Response(context,status=status.HTTP_204_NO_CONTENT)
+        return Response(context, status=status.HTTP_204_NO_CONTENT)
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
@@ -69,12 +69,10 @@ class RoomViewSet(viewsets.ViewSet):
                 serializer = RoomSerializer(room)
                 content = {"data": serializer.data}
                 return Response(content)
-            except :
+            except:
                 message = "THE REQUESTED ROOM DOESNT EXIST OR YOU ARE NOT THE AUTHOR OF ITS CREATION"
                 context = {"message": message}
-                return Response(
-                    context, status=status.HTTP_404_NOT_FOUND
-                )
+                return Response(context, status=status.HTTP_404_NOT_FOUND)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
     def update(self, request, pk=None):
@@ -112,7 +110,5 @@ class RoomViewSet(viewsets.ViewSet):
             except:
                 message = "THE REQUESTED ROOM DOESNT EXIST OR YOU ARE NOT THE AUTHOR OF ITS CREATION"
                 context = {"message": message}
-                return Response(
-                    context, status=status.HTTP_400_BAD_REQUEST
-                )
+                return Response(context, status=status.HTTP_400_BAD_REQUEST)
         return Response(status=status.HTTP_401_UNAUTHORIZED)
