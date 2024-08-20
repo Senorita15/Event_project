@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from event_app.models.reservation import Reservation
+from event.apps.event_app.models.reservation import Reservation
 
 
 class Reservationserializer(serializers.ModelSerializer):

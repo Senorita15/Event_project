@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from event_app.models.room import Room
+from event.apps.event_app.models.room import Room
 
 
 class RoomSerializer(serializers.ModelSerializer):
