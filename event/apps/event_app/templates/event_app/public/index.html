@@ -1,0 +1,29 @@
+{% extends 'event_app/public/layouts/default.html' %} 
+{% block content %}
+<style>
+  .my-4 {
+      margin-top: 1.5rem; /* Marge supérieure */
+  }
+  
+  .card-padding {
+      padding: 1.5rem; /* Padding pour la carte */
+  }
+  </style>
+
+  {% for evenement in evenements %}
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card my-4">
+        <div class="card-body">
+          <div class="card-padding"> <!-- Div pour le padding de la carte -->
+            <h5 class="card-title">{{evenement.name}}</h5>
+            <p class="card-text">{{evenement.description}}</p>
+            <a href="{% url 'events-detail' pk=evenement.pk %}" class="btn btn-primary">Book your ticket</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}  
+  </div>
+  
+{% endblock  %}
