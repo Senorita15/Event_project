@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+
+<!-- Header Section -->
+{% include 'event_app/public/partials/header_1.html' %}
+<!-- End header section -->
+
+
+<body>
+    <div class="loader"></div>
+    <div id="app">
+      <div class="main-wrapper main-wrapper-1">
+        <div class="navbar-bg"></div>
+        
+      <!--Navbar-->
+      {% include 'event_app/public/partials/navbar_1.html' %}
+      <!--End-->
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <section class="section">
+              <div class="section-body">
+                  <!--  content is here -->
+                  {% block content %}
+
+                  {% endblock %}
+              </div>
+            </section>
+        </div>
+        <!-- End Main Content -->
+
+        <!-- Footer Section --> 
+        {% include 'event_app/public/partials/footer.html' %}
+        <!-- End Footer Section -->
+
+
+      </div>
+    </div>
+    <!-- General JS Scripts -->
+    
+</body>
+
+
+</html>
