@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view, action
 
 class category_creation_form(View):
     def get(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.role=='gerant':
+        if request.user.is_authenticated and request.user.role == "gerant":
             serializer = TicketcategorySerializer()
             context = {"serializer": serializer}
             return render(request, "event_app/ticket_category/add.html", context)
@@ -92,7 +92,7 @@ class CategoryViewSet(viewsets.ViewSet):
                     return Response(content, status=status.HTTP_200_OK)
                 message = serializer.errors
                 context = {"message": serializer.errors}
-                return Response(context,status=status.HTTP_400_BAD_REQUEST)
+                return Response(context, status=status.HTTP_400_BAD_REQUEST)
             except:
                 message = "THE REQUESTED ROOM DOESNT EXIST OR YOU ARE NOT THE AUTHOR OF ITS CREATION"
                 return Response(
