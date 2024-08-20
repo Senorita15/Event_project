@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views.room import RoomViewSet, room_creation_form, room_edit_form
 from .views.event import EventViewSet, event_creation_form, event_edit_form
+from .views.public import ReservationViewSet_public, reservation_creation_form
 from .views.reservation import (
     ReservationViewSet,
     FilterReservationDataPage,
@@ -20,6 +21,7 @@ router.register(r"rooms", RoomViewSet, basename="room"),
 router.register(r"events", EventViewSet, basename="event"),
 router.register(r"categories", CategoryViewSet, basename="category"),
 router.register(r"reservations", ReservationViewSet, basename="reservation"),
+router.register(r"home", ReservationViewSet_public, basename="events")
 
 
 urlpatterns = [
@@ -88,6 +90,12 @@ urlpatterns = [
         "reservation/validate/<int:pk>/",
         ReservationViewSet.as_view({"get": "reservation_validate"}),
         name="validate_reservation",
+    ),
+    # URLS Ticket
+    path(
+        "ticket/create_form/",
+        reservation_creation_form.as_view(),
+        name="reservation_create",
     ),
     path("", include(router.urls)),
 ]
