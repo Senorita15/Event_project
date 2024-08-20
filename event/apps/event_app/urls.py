@@ -3,10 +3,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from .views.room import RoomViewSet, room_creation_form, room_edit_form
 from .views.event import EventViewSet, event_creation_form, event_edit_form
 from .views.public import ReservationViewSet_public, reservation_creation_form
+from .views.customer import customer_create_form, customer_Userviewsets, home
 from .views.reservation import (
     ReservationViewSet,
     FilterReservationDataPage,
-    FilteredReservationData,
 )
 from .views.ticket_category import (
     CategoryViewSet,
@@ -21,7 +21,8 @@ router.register(r"rooms", RoomViewSet, basename="room"),
 router.register(r"events", EventViewSet, basename="event"),
 router.register(r"categories", CategoryViewSet, basename="category"),
 router.register(r"reservations", ReservationViewSet, basename="reservation"),
-router.register(r"home", ReservationViewSet_public, basename="events")
+router.register(r"home", ReservationViewSet_public, basename="events"),
+router.register(r"customers", customer_Userviewsets, basename="customer"),
 
 
 urlpatterns = [
@@ -96,6 +97,16 @@ urlpatterns = [
         "ticket/create_form/",
         reservation_creation_form.as_view(),
         name="reservation_create",
+    ),
+    path(
+        "customer/home",
+        home,
+        name="home",
+    ),
+    path(
+        "customer/create_form/",
+        customer_create_form,
+        name="customer_create",
     ),
     path("", include(router.urls)),
 ]
