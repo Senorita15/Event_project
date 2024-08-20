@@ -2,12 +2,19 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 from .views.room import RoomViewSet, room_creation_form, room_edit_form
 from .views.event import EventViewSet, event_creation_form, event_edit_form
+from .views.ticket_category import (
+    CategoryViewSet,
+    category_creation_form,
+    category_edit_form,
+)
 
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r"rooms", RoomViewSet, basename="room"),
 router.register(r"events", EventViewSet, basename="event"),
+router.register(r"categories", CategoryViewSet, basename="category"),
+
 
 urlpatterns = [
     # URLS ROOM
@@ -42,6 +49,27 @@ urlpatterns = [
         "event/delete/<int:pk>/",
         EventViewSet.as_view({"get": "destroy"}),
         name="event-destroy",
+    ),
+    # URLS Category
+    path(
+        "category/create_form/",
+        category_creation_form.as_view(),
+        name="category_create_",
+    ),
+    path(
+        "category/edit_form/<int:pk>/",
+        category_edit_form.as_view(),
+        name="category-edit-form",
+    ),
+    path(
+        "category/update/<int:pk>/",
+        CategoryViewSet.as_view({"post": "update"}),
+        name="category-update",
+    ),
+    path(
+        "category/delete/<int:pk>/",
+        CategoryViewSet.as_view({"get": "destroy"}),
+        name="category-destroy",
     ),
     path("", include(router.urls)),
 ]
