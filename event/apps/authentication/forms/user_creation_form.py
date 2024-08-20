@@ -15,7 +15,6 @@ class UserForm(UserCreationForm):
             "username",
             "password1",
             "password2",
-            "role",
             "dob",
             "genre",
             "telephone",
