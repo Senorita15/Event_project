@@ -32,7 +32,6 @@ ALLOWED_HOSTS = [
 
 
 # Application definition
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -40,7 +39,19 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'event.apps.authentication',
+    "phonenumber_field",
+    "phone_field",
+    'django_bootstrap5',
+    'crispy_bootstrap5',
+    'crispy_forms',
+    'rest_framework',
+    'event.apps.event_app',
+  
 ]
+
+#Add custom user
+AUTH_USER_MODEL = "authentication.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
